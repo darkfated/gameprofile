@@ -1,4 +1,4 @@
-GameProfile.active_player_data = {}
+GameProfile.active_player_data = GameProfile.active_player_data or {}
 
 function GameProfile.add_tab(id, name, icon, func)
     GameProfile.menu_tabs[id] = {
