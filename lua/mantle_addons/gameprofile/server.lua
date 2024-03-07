@@ -13,7 +13,7 @@ hook.Add('Initialize', 'GameProfile', function()
                 avatar TEXT,
                 city TEXT,
                 age UNSIGNED INTEGER DEFAULT '',
-                likes TEXT '[]',
+                likes TEXT DEFAULT '[]',
                 achievements TEXT DEFAULT '{}',
                 medals TEXT DEFAULT '[]',
                 visual TEXT DEFAULT '{}'
