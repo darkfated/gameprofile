@@ -590,37 +590,39 @@ function GameProfile.open_profile(bool_main_off)
         panel_medals.sp:AddPanel(panel_medal)
     end
 
-    for _, gang_table in pairs(FatedGang.gangs) do
-        local players_table = util.JSONToTable(gang_table.players)
+    if FatedGang then
+        for _, gang_table in pairs(FatedGang.gangs) do
+            local players_table = util.JSONToTable(gang_table.players)
 
-        if players_table[pl_data.steamid] then
-            local info_table = util.JSONToTable(gang_table.info)
+            if players_table[pl_data.steamid] then
+                local info_table = util.JSONToTable(gang_table.info)
 
-            local panel_gang = vgui.Create('DPanel', main_sp)
-            panel_gang:Dock(TOP)
-            panel_gang:DockMargin(0, 8, 0, 0)
-            panel_gang:SetTall(46)
-            panel_gang.Paint = function(_, w, h)
-                draw.RoundedBox(8, 0, 4, w, h - 8, Mantle.color.panel_alpha[2])
-        
-                draw.SimpleText('Игрок находиться в банде: ', 'Fated.18', 10, h * 0.5 - 1, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-                draw.SimpleText(info_table.name, 'Fated.18', 201, h * 0.5 - 1, info_table.col, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-            end
+                local panel_gang = vgui.Create('DPanel', main_sp)
+                panel_gang:Dock(TOP)
+                panel_gang:DockMargin(0, 8, 0, 0)
+                panel_gang:SetTall(46)
+                panel_gang.Paint = function(_, w, h)
+                    draw.RoundedBox(8, 0, 4, w, h - 8, Mantle.color.panel_alpha[2])
             
-            if lp:GangId() then
-                panel_gang.btn_open = vgui.Create('DButton', panel_gang)
-                Mantle.ui.btn(panel_gang.btn_open)
-                panel_gang.btn_open:Dock(RIGHT)
-                panel_gang.btn_open:SetWide(100)
-                panel_gang.btn_open:SetText('Посмотреть')
-                panel_gang.btn_open.DoClick = function()
-                    GameProfile.menu:Remove()
-
-                    FatedGang.open_menu(gang_table.id)
+                    draw.SimpleText('Игрок находиться в банде: ', 'Fated.18', 10, h * 0.5 - 1, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+                    draw.SimpleText(info_table.name, 'Fated.18', 201, h * 0.5 - 1, info_table.col, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
                 end
-            end
+                
+                if lp:GangId() then
+                    panel_gang.btn_open = vgui.Create('DButton', panel_gang)
+                    Mantle.ui.btn(panel_gang.btn_open)
+                    panel_gang.btn_open:Dock(RIGHT)
+                    panel_gang.btn_open:SetWide(100)
+                    panel_gang.btn_open:SetText('Посмотреть')
+                    panel_gang.btn_open.DoClick = function()
+                        GameProfile.menu:Remove()
 
-            break
+                        FatedGang.open_menu(gang_table.id)
+                    end
+                end
+
+                break
+            end
         end
     end
 end
