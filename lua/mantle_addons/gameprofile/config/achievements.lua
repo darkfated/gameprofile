@@ -389,3 +389,11 @@ GameProfile.create_achievement('queen_luck', {
     k = -1,
     category = 'Секретные'
 })
+
+GameProfile.create_achievement('march_8', {
+    name = '8 марта',
+    desc = 'Получить подарок в праздник 8 марта',
+    icon = 'march_8',
+    k = -1,
+    category = 'Разное'
+})
