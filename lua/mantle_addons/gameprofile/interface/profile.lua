@@ -1,5 +1,10 @@
 function GameProfile.open_profile(bool_main_off)
     local pl_data = GameProfile.active_player_data
+
+    if table.IsEmpty(GameProfile.active_player_data) then
+        return
+    end
+
     local lp = LocalPlayer()
 
     if !IsValid(GameProfile.menu) then
