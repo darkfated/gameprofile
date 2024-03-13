@@ -3,7 +3,7 @@ GameProfile.add_tab(3, 'Игроки онлайн', 'gameprofile/players.png', f
     Mantle.ui.sp(sp)
     sp:Dock(FILL)
 
-    for _, pl in ipairs(player.GetAll()) do
+    for _, pl in player.Iterator() do
         local pan_pl = vgui.Create('DPanel', sp)
         pan_pl:Dock(TOP)
         pan_pl:DockMargin(0, 0, 0, 6)
@@ -12,7 +12,7 @@ GameProfile.add_tab(3, 'Игроки онлайн', 'gameprofile/players.png', f
         pan_pl.steamid = pl:SteamID()
         pan_pl.job = pl:getDarkRPVar('job') or 'Неизвестно'
         pan_pl.Paint = function(self, w, h)
-            draw.RoundedBox(8, 0, 0, w - 226, h, Mantle.color.panel_alpha[1])
+            draw.RoundedBox(8, 0, 0, w, h, Mantle.color.panel_alpha[2])
             draw.SimpleText(self.nick, 'Fated.18', 44, h * 0.5 - 1, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
             draw.SimpleText(self.job, 'Fated.18', w - 236, h * 0.5 - 1, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
         end
@@ -25,6 +25,7 @@ GameProfile.add_tab(3, 'Игроки онлайн', 'gameprofile/players.png', f
         pan_pl.btn_profile = vgui.Create('DButton', pan_pl)
         Mantle.ui.btn(pan_pl.btn_profile)
         pan_pl.btn_profile:Dock(RIGHT)
+        pan_pl.btn_profile:DockMargin(4, 4, 4, 4)
         pan_pl.btn_profile:SetWide(220)
         pan_pl.btn_profile:SetText('Открыть профиль')
         pan_pl.btn_profile.DoClick = function()

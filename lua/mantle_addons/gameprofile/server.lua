@@ -51,7 +51,7 @@ hook.Add('PlayerInitialSpawn', 'GameProfile', function(pl)
 
     local gameprofile_table = {}
 
-    for _, game_pl in ipairs(player.GetAll()) do
+    for _, game_pl in player.Iterator() do
         gameprofile_table[game_pl:SteamID()] = GameProfile.profiles[game_pl:SteamID()]
     end
 
