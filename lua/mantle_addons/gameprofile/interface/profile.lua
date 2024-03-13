@@ -228,11 +228,12 @@ function GameProfile.open_profile(bool_main_off)
             DM:AddSpacer()
             DM:AddOption('Баннер', function()
                 local menu = vgui.Create('DFrame')
-                Mantle.ui.frame(menu, 'GameProfile', 758, 310, true)
+                Mantle.ui.frame(menu, 'GameProfile', 758, 470, true)
                 menu:Center()
                 menu:MakePopup()
                 menu:SetKeyBoardInputEnabled(false)
                 menu.center_title = 'Изменить баннер'
+                menu.active_banner = visual_data.banner
 
                 menu.sp = vgui.Create('DScrollPanel', menu)
                 Mantle.ui.sp(menu.sp)
@@ -251,19 +252,23 @@ function GameProfile.open_profile(bool_main_off)
                 end
 
                 local function apply_banner(k)
+                    Mantle.func.sound()
+
                     RunConsoleCommand('gameprofile_settings_banner', pl_data.steamid, k)
                     RunConsoleCommand('gameprofile_get_player', pl_data.steamid)
 
                     timer.Simple(0.2, function()
                         GameProfile.open_profile(true)
                     end)
+
+                    menu.active_banner = k
                 end
 
                 btn_clear.DoClick = function()
                     apply_banner(0)
                 end
 
-                for k = 1, 9 do
+                for k = 1, 16 do
                     local btn_banner = vgui.Create('DButton', menu.sp)
                     btn_banner:Dock(TOP)
                     btn_banner:DockMargin(0, 0, 0, 4)
@@ -273,9 +278,11 @@ function GameProfile.open_profile(bool_main_off)
                     local mat_banner = Material('gameprofile/banners/' .. k .. '.png')
 
                     btn_banner.Paint = function(_, w, h)
+                        local indent = menu.active_banner == k and 2 or 0
+
                         surface.SetDrawColor(color_white)
                         surface.SetMaterial(mat_banner)
-                        surface.DrawTexturedRect(0, 0, w, h)
+                        surface.DrawTexturedRect(indent, indent, w - indent * 2, h - indent * 2)
                     end
                     btn_banner.DoClick = function()
                         apply_banner(k)

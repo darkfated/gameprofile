@@ -38,7 +38,8 @@ local function init()
         menu_tabs = {},
         achievements = {},
         medals = {},
-        visual = {}
+        visual = {},
+        profiles = {}
     }
 
     run_scripts()

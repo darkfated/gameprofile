@@ -28,6 +28,8 @@ concommand.Add('gameprofile_settings_nick', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET nick = '%s' WHERE steamid = '%s'", nick, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'nick', nick)
 end)
 
 concommand.Add('gameprofile_settings_gender', function(pl, _, args)
@@ -44,6 +46,8 @@ concommand.Add('gameprofile_settings_gender', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET gender = '%s' WHERE steamid = '%s'", gender, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'gender', gender)
 end)
 
 concommand.Add('gameprofile_settings_status', function(pl, _, args)
@@ -60,6 +64,8 @@ concommand.Add('gameprofile_settings_status', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET status = '%s' WHERE steamid = '%s'", status, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'status', status)
 end)
 
 concommand.Add('gameprofile_settings_avatar', function(pl, _, args)
@@ -76,6 +82,8 @@ concommand.Add('gameprofile_settings_avatar', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET avatar = '%s' WHERE steamid = '%s'", avatar, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'avatar', avatar)
 end)
 
 concommand.Add('gameprofile_settings_city', function(pl, _, args)
@@ -92,6 +100,8 @@ concommand.Add('gameprofile_settings_city', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET city = '%s' WHERE steamid = '%s'", city, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'city', city)
 end)
 
 concommand.Add('gameprofile_settings_age', function(pl, _, args)
@@ -112,6 +122,8 @@ concommand.Add('gameprofile_settings_age', function(pl, _, args)
 
     local query = string.format("UPDATE gameprofile SET age = '%s' WHERE steamid = '%s'", age, steamid)
     sql.Query(query)
+
+    ChangeProfileData(steamid, 'age', age)
 end)
 
 concommand.Add('gameprofile_settings_banner', function(pl, _, args)
@@ -126,7 +138,7 @@ concommand.Add('gameprofile_settings_banner', function(pl, _, args)
         return
     end
 
-    if banner_id < 0 or banner_id > 9 then
+    if banner_id < 0 or banner_id > 16 then
         return
     end
 
@@ -142,8 +154,12 @@ concommand.Add('gameprofile_settings_banner', function(pl, _, args)
             visual_table.banner = banner_id
         end
 
-        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", util.TableToJSON(visual_table), steamid)
+        local visual_table_json = util.TableToJSON(visual_table)
+
+        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", visual_table_json, steamid)
         sql.Query(queryUpdate)
+
+        ChangeProfileData(steamid, 'visual', visual_table_json)
 
         if !pl.ach_custom_banner then
             pl.ach_custom_banner = true
@@ -183,8 +199,12 @@ concommand.Add('gameprofile_settings_background', function(pl, _, args)
             visual_table.background = background_id
         end
 
-        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", util.TableToJSON(visual_table), steamid)
+        local visual_table_json = util.TableToJSON(visual_table)
+
+        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", visual_table_json, steamid)
         sql.Query(queryUpdate)
+
+        ChangeProfileData(steamid, 'visual', visual_table_json)
 
         if !pl.ach_custom_background then
             pl.ach_custom_background = true
@@ -215,8 +235,12 @@ concommand.Add('gameprofile_settings_desc', function(pl, _, args)
         local visual_table = util.JSONToTable(resultSelect[1].visual)
         visual_table.desc = desc
 
-        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", util.TableToJSON(visual_table), steamid)
+        local visual_table_json = util.TableToJSON(visual_table)
+
+        local queryUpdate = string.format("UPDATE gameprofile SET visual = '%s' WHERE steamid = '%s'", visual_table_json, steamid)
         sql.Query(queryUpdate)
+
+        ChangeProfileData(steamid, 'visual', visual_table_json)
     end
 end)
 
@@ -284,5 +308,7 @@ concommand.Add('gameprofile_like', function(pl, _, args)
         local likes_table_json = util.TableToJSON(likes_table)
 
         sql.Query("UPDATE gameprofile SET likes = '" .. likes_table_json .. "' WHERE steamid = '" .. steamid .. "'")
+
+        ChangeProfileData(steamid, 'likes', likes_table_json)
     end
 end)
