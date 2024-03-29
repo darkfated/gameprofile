@@ -42,13 +42,3 @@ GameProfile.create_medal('darkfated', {
     name = 'Тебя любит DarkFated',
     icon = 'darkfated',
 })
-
-GameProfile.create_medal('jeyka', {
-    name = 'Тебя любит JeyKa',
-    icon = 'jeyka',
-})
-
-GameProfile.create_medal('krispi', {
-    name = 'Тебя любит Krispi',
-    icon = 'krispi',
-})
