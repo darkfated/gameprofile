@@ -31,7 +31,7 @@ end
 
 local function init()
     if SERVER then
-        resource.AddFile('3152678466')
+        resource.AddWorkshop('3152678466')
     end
 
     GameProfile = GameProfile or {
