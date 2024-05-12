@@ -10,11 +10,18 @@ GameProfile.add_tab(3, 'Игроки онлайн', 'gameprofile/players.png', f
         pan_pl:SetTall(44)
         pan_pl.nick = pl:Name()
         pan_pl.steamid = pl:SteamID()
-        pan_pl.job = pl:getDarkRPVar('job') or 'Неизвестно'
+
+        if DarkRP then
+            pan_pl.job = pl:getDarkRPVar('job') or 'Неизвестно'
+        end
+
         pan_pl.Paint = function(self, w, h)
             draw.RoundedBox(8, 0, 0, w, h, Mantle.color.panel_alpha[2])
             draw.SimpleText(self.nick, 'Fated.18', 44, h * 0.5 - 1, color_white, TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
-            draw.SimpleText(self.job, 'Fated.18', w - 236, h * 0.5 - 1, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+
+            if self.job then
+                draw.SimpleText(self.job, 'Fated.18', w - 236, h * 0.5 - 1, color_white, TEXT_ALIGN_RIGHT, TEXT_ALIGN_CENTER)
+            end
         end
 
         pan_pl.avatar = vgui.Create('AvatarImage', pan_pl)
