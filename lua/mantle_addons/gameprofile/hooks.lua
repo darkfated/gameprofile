@@ -6,12 +6,14 @@ hook.Add('PlayerDeath', 'GameProfile.Ach', function(pl, _, attacker)
             GameProfile.add_achievement(attacker, 'matrix_error', 1)
         end
 
-        if attacker:getJobTable().name == 'Пухляш' then
-            GameProfile.add_achievement(attacker, 'fat_good', 1)
-        end
+        if DarkRP then
+            if attacker:getJobTable().name == 'Пухляш' then
+                GameProfile.add_achievement(attacker, 'fat_good', 1)
+            end
 
-        if pl:getJobTable().name == 'Забанен' then
-            GameProfile.add_achievement(attacker, 'kill_banned', 1)
+            if pl:getJobTable().name == 'Забанен' then
+                GameProfile.add_achievement(attacker, 'kill_banned', 1)
+            end
         end
     end
 end)
