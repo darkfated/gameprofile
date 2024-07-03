@@ -90,10 +90,14 @@ net.Receive('GameProfile-Create', function(_, pl)
     end
 
     local steamid = pl:SteamID()
+    local safeNick = sql.SQLStr(nick)
+    local safeGender = sql.SQLStr(gender)
+    local safeStatus = sql.SQLStr(status)
+    local safeAvatar = sql.SQLStr(avatar)
 
-    sql.Query("INSERT INTO gameprofile (steamid, nick, gender, status, avatar, city) VALUES ('" .. steamid .. "', '" .. nick .. "', '" .. gender .. "', '" .. status .. "', '" .. avatar .. "', 'Не указано')")
+    sql.Query("INSERT INTO gameprofile (steamid, nick, gender, status, avatar, city) VALUES ('" .. steamid .. "', " .. safeNick .. ", " .. safeGender .. ", " .. safeStatus .. ", " .. safeAvatar .. ", 'Не указано')")
 
-    local result = sql.QueryRow("SELECT * FROM gameprofile WHERE steamid = '" .. steamid .. "' LIMIT 1")
+    local result = sql.QueryRow("SELECT * FROM gameprofile WHERE steamid = " .. steamid .. " LIMIT 1")
     GameProfile.profiles[steamid] = result
 
     net.Start('GameProfile-SendProfileData')
