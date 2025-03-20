@@ -1,21 +1,21 @@
 # GameProfile
-This is the multi-faced in-game profile system in Garry's Mod. It allows you to create your own profile, which you can customize as you wish. And additional elements of this addon, like achievements (and many more in the future) allows you to get the most interesting experience by creating a unique profile to show players.
+Это многофункциональная система внутриигрового профиля в Garry's Mod. Она позволяет создать собственный профиль, который можно настроить по своему желанию. Дополнительные элементы этого аддона, такие как достижения (и многое другое в будущем), позволяют получить максимально интересный опыт, создавая уникальный профиль для демонстрации другим игрокам.
 
-Console command to open the menu: `gameprofile_menu`
+Команда в консоли для открытия меню: `gameprofile_menu`
 
-🔧 [Mantle](https://github.com/darkfated/mantle): in order for the system to work, you need to use this Gmod library
+🔧 [Mantle](https://github.com/darkfated/mantle): для работы системы необходимо использовать эту библиотеку для Gmod
 
-## Screenshots ⛅
-### Profile Page
-<img src="https://github.com/darkfated/moontab/assets/49955245/17058b70-83f4-41a6-abf6-678fddfd9bb3" width="750" alt="Profile Page">
+## Скриншоты ⛅
+### Страница профиля
+<img src="https://github.com/darkfated/moontab/assets/49955245/17058b70-83f4-41a6-abf6-678fddfd9bb3" width="750" alt="Страница профиля">
 
-### Achievements Page
-<img src="https://github.com/darkfated/moontab/assets/49955245/016f713c-4746-484e-9ec5-44e88a8ac5a1" width="750" alt="Achievements Page">
+### Страница достижений
+<img src="https://github.com/darkfated/moontab/assets/49955245/016f713c-4746-484e-9ec5-44e88a8ac5a1" width="750" alt="Страница достижений">
 
-### Multiple customization is available, and more!
-<img src="https://github.com/darkfated/moontab/assets/49955245/cfd117b2-0082-47b1-b253-0afcf0d226c8" width="950" alt="Customization">
+### Доступна множественная настройка и многое другое!
+<img src="https://github.com/darkfated/moontab/assets/49955245/cfd117b2-0082-47b1-b253-0afcf0d226c8" width="950" alt="Настройка">
 
 
-## Additional information
-- I recommend [adding an addon with content](https://steamcommunity.com/sharedfiles/filedetails/?id=3152678466) to your workshop collection so you don't have any problems
-- Addon is integrated with the gang system. If a person is a member of a gang, his profile shows an additional panel of information about it. If you would like to put this system on as well, you can [download FatedGang here](https://github.com/darkfated/FatedGang)
+## Дополнительная информация
+- Рекомендую [добавить аддон с контентом](https://steamcommunity.com/sharedfiles/filedetails/?id=3152678466) в вашу коллекцию в Workshop, чтобы у вас не возникло проблем
+- Аддон интегрирован с системой группировок. Если человек состоит в группировке, его профиль отображает дополнительную панель с информацией о ней. Если вы хотите также использовать эту систему, вы можете [скачать FatedGang здесь](https://github.com/darkfated/FatedGang)
