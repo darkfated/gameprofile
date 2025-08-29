@@ -1,7 +1,7 @@
 util.AddNetworkString('GameProfile-CreateProfile')
 
 net.Receive('GameProfile-CreateProfile', function(len, pl)
-    local steamid64 = pl:SteamID64()
+    local steamid = pl:SteamID()
     local nickname = net.ReadString()
     local gender = net.ReadString()
     local status = net.ReadString()
@@ -11,34 +11,37 @@ net.Receive('GameProfile-CreateProfile', function(len, pl)
         return
     end
 
-    if GameProfile.profiles[steamid64] then
+    if GameProfile.profiles[steamid] then
         Mantle.notify(pl, Color(255, 0, 0), 'Система профиля', 'У вас уже есть созданный профиль!')
         return
     end
 
-    sql.QueryTyped('INSERT INTO gameprofile (steamid64, nickname, gender, status, age) VALUES (?, ?, ?, ?, ?)',
-        steamid64,
+    sql.QueryTyped('INSERT INTO gameprofile (steamid, nickname, gender, status, age) VALUES (?, ?, ?, ?, ?)',
+        steamid,
         nickname,
         gender,
         status,
         age)
 
-    local profile = sql.QueryTyped('SELECT * FROM gameprofile WHERE steamid64 = ?', steamid64)[1]
+    sql.QueryTyped('INSERT INTO gameprofile_inv (steamid) VALUES (?)', steamid)
+
+    local profile = sql.QueryTyped('SELECT * FROM gameprofile WHERE steamid = ?', steamid)[1]
 
     if profile then
         local tableProfile = {
-            steamid64 = profile.steamid64,
+            steamid = profile.steamid,
             nickname = profile.nickname,
             gender = profile.gender,
             status = profile.status,
             age = profile.age,
-            city = profile.city
+            city = profile.city,
+            avatar = profile.avatar,
+            banner = profile.banner
         }
-
-        GameProfile.profiles[steamid64] = tableProfile
+        GameProfile.profiles[steamid] = tableProfile
 
         net.Start('GameProfile-GetProfile')
-            net.WriteString(steamid64)
+            net.WriteString(steamid)
             net.WriteTable(tableProfile)
         net.Broadcast()
     end

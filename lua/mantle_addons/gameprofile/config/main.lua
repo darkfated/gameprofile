@@ -1,1 +1,7 @@
-GameProfile.config.test = 'This is a test configuration value.'
+-- Какие статусы существуют
+GameProfile.config.statuses = {
+    'Женат',
+    'Встречаюсь',
+    'В активном поиске',
+    'Не интересно'
+}

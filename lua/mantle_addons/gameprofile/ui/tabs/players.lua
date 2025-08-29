@@ -1,3 +1,3 @@
 local PANEL = {}
 
-vgui.Register('GameProfile.Players', PANEL, 'DPanel')
+vgui.Register('GameProfile.Players', PANEL, 'Panel')

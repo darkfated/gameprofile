@@ -1,6 +1,12 @@
 net.Receive('GameProfile-GetProfile', function()
-    local steamid64 = net.ReadString()
+    local steamid = net.ReadString()
     local profile = net.ReadTable()
 
-    GameProfile.profiles[steamid64] = profile
+    GameProfile.profiles[steamid] = profile
+end)
+
+net.Receive('GameProfile-GetInventory', function()
+    local inventory = net.ReadTable()
+
+    GameProfile.active_inventory = inventory
 end)

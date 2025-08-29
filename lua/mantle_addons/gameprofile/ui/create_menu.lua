@@ -8,7 +8,7 @@ local function CreateMenu()
     m:SetTitle('')
     m:SetCenterTitle('Создание профиля')
     m:DisableCloseBtn()
-    
+
     local entryNickname = vgui.Create('MantleEntry', m)
     entryNickname:Dock(TOP)
     entryNickname:DockMargin(4, 0, 4, 0)
@@ -27,17 +27,16 @@ local function CreateMenu()
     comboboxStatus:Dock(TOP)
     comboboxStatus:DockMargin(4, 8, 4, 0)
     comboboxStatus:SetPlaceholder('Выберите статус')
-    comboboxStatus:AddChoice('Женат')
-    comboboxStatus:AddChoice('Встречаюсь')
-    comboboxStatus:AddChoice('В активном поиске')
-    comboboxStatus:AddChoice('Не интересно')
+    for _, status in ipairs(GameProfile.config.statuses) do
+        comboboxStatus:AddChoice(status)
+    end
 
     local sliderAge = vgui.Create('MantleSlideBox', m)
     sliderAge:Dock(TOP)
     sliderAge:DockMargin(0, 4, 0, 0)
     sliderAge:SetRange(7, 30)
     sliderAge:SetText('Укажите возраст')
-    
+
     local btnCreate = vgui.Create('MantleBtn', m)
     btnCreate:Dock(TOP)
     btnCreate:DockMargin(4, 8, 4, 4)
@@ -48,19 +47,19 @@ local function CreateMenu()
         local gender = comboboxGender:GetValue()
         local status = comboboxStatus:GetValue()
         local age = sliderAge:GetValue()
-        
+
         if nickname == '' then
-            chat.AddText(color_error, 'Вы не указали никнейм профиля!')
+            m:Notify('Вы не указали никнейм профиля!', 2, color_error)
             return
         end
 
         if !gender then
-            chat.AddText(color_error, 'Вы не указали пол профиля!')
+            m:Notify('Вы не указали пол профиля!')
             return
         end
 
         if !status then
-            chat.AddText(color_error, 'Вы не указали статус профиля!')
+            m:Notify('Вы не указали статус профиля!')
             return
         end
 
@@ -76,7 +75,7 @@ local function CreateMenu()
 end
 
 concommand.Add('gameprofile_createmenu', function()
-    if GameProfile.profiles[LocalPlayer():SteamID64()] then
+    if GameProfile.profiles[LocalPlayer():SteamID()] then
         chat.AddText(color_error, 'У вас уже есть созданный профиль!')
         return
     end
@@ -86,8 +85,8 @@ end)
 
 hook.Add('InitPostEntity', 'GameProfile.CreateMenu', function()
     local lp = LocalPlayer()
-    timer.Simple(0.1, function()
-        if !GameProfile.profiles[lp:SteamID64()] then
+    timer.Simple(1, function()
+        if !GameProfile.profiles[lp:SteamID()] then
             lp:ConCommand('gameprofile_createmenu')
         end
     end)
