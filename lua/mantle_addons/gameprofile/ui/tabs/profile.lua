@@ -77,43 +77,21 @@ function PANEL:UpdateProfile()
     self.topPanel.editBtn.DoClick = function()
         local dm = Mantle.ui.derma_menu()
 
-        local optionAvatar = dm:AddOption('Сменить аватар')
-        local avatars = optionAvatar:AddSubMenu()
-        for avatarId, avatarName in pairs(GameProfile.config.avatars) do
-            avatars:AddOption(avatarName, function()
-                RunConsoleCommand('gameprofile_change_avatar', avatarId)
-                timer.Simple(0.1, function()
-                    self:UpdateProfile()
-                end)
-            end)
-        end
-
-        local optionBanner = dm:AddOption('Сменить баннер')
-        local banners = optionBanner:AddSubMenu()
-        for bannerId, bannerName in pairs(GameProfile.config.banners) do
-            banners:AddOption(bannerName, function()
-                RunConsoleCommand('gameprofile_change_banner', bannerId)
-                timer.Simple(0.1, function()
-                    self:UpdateProfile()
-                end)
-            end)
-        end
-
-        local optionDesc = dm:AddOption('Сменить описание')
-        local desc = optionDesc:AddSubMenu()
-        desc:AddOption('Никнейм', function()
+        local optionChange = dm:AddOption('Сменить...')
+        local changeSubMenu = optionChange:AddSubMenu()
+        changeSubMenu:AddOption('Никнейм', function()
 
         end)
-        desc:AddOption('Пол', function()
+        changeSubMenu:AddOption('Пол', function()
 
         end)
-        desc:AddOption('Статус', function()
+        changeSubMenu:AddOption('Статус', function()
 
         end)
-        desc:AddOption('Возраст', function()
+        changeSubMenu:AddOption('Возраст', function()
 
         end)
-        desc:AddOption('Город', function()
+        changeSubMenu:AddOption('Город', function()
 
         end)
     end
